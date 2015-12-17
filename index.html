@@ -2,7 +2,6 @@
 <!--This document is licensed under The GNU General Public License, Version 3, 29 June 2007 (GPLv3)
 The precise terms and conditions for copying, distribution and modification 
 can be found at http://www.gnu.org/licenses/gpl-3.0.en.html-->
-<!-- Solid State by @n33co -->
 <html><head>
 <!-- Please reference where you got a piece of code and why your using it -->
 <script>
@@ -14,37 +13,29 @@ can be found at http://www.gnu.org/licenses/gpl-3.0.en.html-->
 	var domainwithoutperiod= domainname.replace(/\./g,' ');
 	localStorage.setItem('domain', domainwithoutperiod);
 	var host = domainname;    if ((host == window.location.host) && (window.location.protocol != "https:")) window.location.protocol = "https";
-    	var script = document.createElement('script'); 	script.src = 'https://dl.dropbox.com/s/n87b0dz3iyt6b8j/index.js?dl=0';   document.write(script.outerHTML);
-	var script = document.createElement('script'); 	script.src = 'https://dl.dropbox.com/s/x1pdnh0b29j47dr/speakClient.js?dl=0';   document.write(script.outerHTML);
-	document.createElement('script');  script.src = '//cdn.auth0.com/js/lock-7.9.min.js';   document.write(script.outerHTML);
+	var script = document.createElement('script'); 	script.src = '//cdn.auth0.com/js/lock-7.9.min.js';   document.write(script.outerHTML);
 	document.createElement('script');  script.src = 'https://checkout.stripe.com/checkout.js';   document.write(script.outerHTML);
 	document.createElement('script');  script.src = '//cdnjs.cloudflare.com/ajax/libs/annyang/2.0.0/annyang.min.js';   document.write(script.outerHTML);
 	document.createElement('script');  script.src = 'https://cdn.firebase.com/js/client/2.3.1/firebase.js';   document.write(script.outerHTML);
 	document.createElement('script');  script.src = 'https://mandrillapp.com/api/docs/js/mandrill.js';   document.write(script.outerHTML);
-	document.createElement('script');  script.src = 'https://cdn.jsdelivr.net/g/skeljs@0.4.6,jquery@3.0.0-alpha1,html5shiv@3.7.3';   document.write(script.outerHTML);
+	document.createElement('script');  script.src = 'https://code.jquery.com/jquery-2.1.4.min.js';   document.write(script.outerHTML);
+ 	document.createElement('script');  script.src = '//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js';   document.write(script.outerHTML);
  	document.write('<link rel="stylesheet" type="text/css" href="https://dl.dropbox.com/s/y0c1o2wmggiq4mt/main.css?dl=0">');
  	document.write('<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">');
 //here starts a block of from http://goo.gl/Q3IDjG that lets users edit text and save it.
 function saveEdits() {
-
 //get the editable element
 var editElem = document.getElementById("paper");
-
 //get the edited element content
 var userVersion = editElem.innerHTML;
-
 //save the content to local storage | We could ask user to login first but the thought of registration might thwart some users.
 localStorage.userEdits = userVersion;
-
 //write a confirmation to the user
-document.getElementById("save").text = "saved!";
-}
+document.getElementById("save").text = "saved!";}
 function checkEdits() {
-
 //find out if the user has previously saved edits, if they do than load them to paper
 if(localStorage.userEdits!=null)
-document.getElementById("paper").innerHTML=localStorage.userEdits;
-}
+document.getElementById("paper").innerHTML=localStorage.userEdits;}
 //save date to localstorage
 Date.prototype.yyyymmdd = function() {
    var yyyy = this.getFullYear().toString();
@@ -61,18 +52,34 @@ localStorage.setItem('date', dt);
 for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f)}})(document,window.mixpanel||[]);
 mixpanel.init("fd7a2087c6faace8bffcbb0103a11618");</script>
 <!-- end Mixpanel -->
-<style>
-body {    background-color: #3d3d3d;}
-</style>
+
 </head><body onload="checkEdits()">
-	<div id="page">	</div>
-<script>
+	  <div class="search">
+	  	 <ul id="users"></ul>
+    <input type="text" style="display:none">
+  </div>
+  <div id="page"></div>
+<section id="footer"><div class="inner"><ul id="paperfooter" class="copyright"><li></li><li><a id="people" class="fa fa-users"></a></li><li><a id="finance" class=" fa fa-bar-chart"></a></li>	<li><a id="settings" class="fa fa-info"></a></li></ul><ul id="landingfooter" class="copyright"><li>© 2015 <a href=""><span id="rights">Fastur Inc.</span></a> All rights reserved.</li></ul><section id="history" class="features" style="display: none;"></section><span id="functions"></span></div></section><script>
+//annyang
 annyang.start();
+if (annyang) {
+domain = localStorage.getItem("domain");
+var commands = {
+'*term': function(term) {
+$("#paper").append(" " + term);
+saveEdits();
+var url = "https://vct.firebaseio.com/voices/" + domain; 
+var firebaseRef = new Firebase(url); 
+var postRef = firebaseRef.push(); 
+postRef.set({papervct: term});
+ }};
+ annyang.addCommands(commands); }
+ 
 // prompt auth
+
 var lock = null;
 $(document).ready(function() {
-   lock = new Auth0Lock('ZPJad5hCZV8SilXZeARGfgSUqXj9ONN8', 'xlynkz.auth0.com');
-});
+   lock = new Auth0Lock('ZPJad5hCZV8SilXZeARGfgSUqXj9ONN8', 'xlynkz.auth0.com'); });
 var userProfile;
 $('.btn-login').click(function(e) {
   e.preventDefault();
@@ -86,12 +93,11 @@ $('.btn-login').click(function(e) {
       userProfile = profile;
       uid = profile.user_id;
       localStorage.setItem("uid", uid);
-      //get their paper
+      //get their data
        var ref = new Firebase("https://vct.firebaseio.com/" + uid);
        ref.on("value", function(snapshot) {
        var allPost = snapshot.val();
-       document.getElementById("paper").innerText = allPost.papervct;
-       });
+       document.getElementById("paper").innerText = allPost.papervct;       });
     var ref = new Firebase("https://vct.firebaseio.com/public" );
     ref.once("value", function(snapshot) {
     snapshot.forEach(function(childSnapshot) {
@@ -109,24 +115,10 @@ $('.btn-login').click(function(e) {
 //menu
 $("#finance").click( function(){ document.getElementById("paper").innerText = "what is the status?"; 
 var msg = new SpeechSynthesisUtterance('The status is: '); 
-window.speechSynthesis.speak(msg); 
-});
+window.speechSynthesis.speak(msg); });
 $("#settings").click( function(){ document.getElementById("paper").innerHTML = "What can I do?"; var msg = new SpeechSynthesisUtterance('Fastur is the easiest way to build'); window.speechSynthesis.speak(msg);}       );
 $("#people").click( function(){ document.getElementById("paper").innerText = "Who do you want to invite?"; var msg = new SpeechSynthesisUtterance('Who do you want to invite?'); window.speechSynthesis.speak(msg);});
 mixpanel.track(window.location.host + " loaded", { });
-//annyang
-if (annyang) {
-domain = localStorage.getItem("domain");
-var commands = {
-'*term': function(term) {
-$("#paper").append(" " + term);
-saveEdits();
-var url = "https://vct.firebaseio.com/voices/" + domain; 
-var firebaseRef = new Firebase(url); 
-var postRef = firebaseRef.push(); 
-postRef.set({papervct: term});
- }};
- annyang.addCommands(commands); }
 
 /*get public papers*/
 senddate = localStorage.getItem("date");
@@ -188,7 +180,7 @@ postRef.set({papervct: term});}
 });
 </script>
 <script>
-$('#paper').on('input',function(e){	saveEdits()	});
+$('#paper').on('input',function(e){	saveEdits()	}); 
 </script>
 <script>
 //responses
@@ -216,8 +208,39 @@ var ref = new Firebase("https://vct.firebaseio.com/" + domain );
 ref.on("child_added", function(snapshot, prevChildKey) {
 var newPost = snapshot.val();
 var page = (newPost.papervct);
-document.getElementById("page").innerHTML = page;});
+document.getElementById("page").innerHTML = page;
+});
+var domain = localStorage.getItem("domain");
+document.getElementById("rights").innerHTML = domain;
 
 //if no directory exists for domain then create one 
 </script>
-</body></html>
+<script>
+    var $input = $('#input');
+    var $users = $('#users');
+
+    $(document).ready(function() {
+      var client = algoliasearch('1WFMK06AUA', '274c770af80b09e77f199b6c7d064336');
+      var index = client.initIndex('test');
+
+      $input.keyup(function() {
+        index.search($input.val(), {
+          hitsPerPage: 10,
+          facets: '*'
+        }, searchCallback);
+      }).focus();
+    });
+
+    function searchCallback(err, content) {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      $users.empty();
+      for (var i = 0; i < content.hits.length; i++) {
+        $users.append('<li>' + content.hits[i].name + '</li>');
+      }
+    };
+</script>
+</body>
+</html>
