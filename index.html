@@ -1,246 +1,49 @@
 <!DOCTYPE HTML>
-<!--This document is licensed under The GNU General Public License, Version 3, 29 June 2007 (GPLv3)
-The precise terms and conditions for copying, distribution and modification 
-can be found at http://www.gnu.org/licenses/gpl-3.0.en.html-->
-<html><head>
-<!-- Please reference where you got a piece of code and why your using it -->
-<script>
-//maintain this as starting document for other efforts
-//we like jquery but in an effort to support as many environments as possible let's try to use plain javascript.
-//Where am I? Let's take a look at the domain name that loaded me. 
-	var domainname = window.location.host;
-	document.title = domainname;
-	var domainwithoutperiod= domainname.replace(/\./g,' ');
-	localStorage.setItem('domain', domainwithoutperiod);
-	var host = domainname;    if ((host == window.location.host) && (window.location.protocol != "https:")) window.location.protocol = "https";
-	var script = document.createElement('script'); 	script.src = '//cdn.auth0.com/js/lock-7.9.min.js';   document.write(script.outerHTML);
-	document.createElement('script');  script.src = 'https://checkout.stripe.com/checkout.js';   document.write(script.outerHTML);
-	document.createElement('script');  script.src = '//cdnjs.cloudflare.com/ajax/libs/annyang/2.0.0/annyang.min.js';   document.write(script.outerHTML);
-	document.createElement('script');  script.src = 'https://cdn.firebase.com/js/client/2.3.1/firebase.js';   document.write(script.outerHTML);
-	document.createElement('script');  script.src = 'https://mandrillapp.com/api/docs/js/mandrill.js';   document.write(script.outerHTML);
-	document.createElement('script');  script.src = 'https://code.jquery.com/jquery-2.1.4.min.js';   document.write(script.outerHTML);
- 	document.createElement('script');  script.src = '//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js';   document.write(script.outerHTML);
- 	document.write('<link rel="stylesheet" type="text/css" href="https://dl.dropbox.com/s/y0c1o2wmggiq4mt/main.css?dl=0">');
- 	document.write('<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">');
-//here starts a block of from http://goo.gl/Q3IDjG that lets users edit text and save it.
-function saveEdits() {
-//get the editable element
-var editElem = document.getElementById("paper");
-//get the edited element content
-var userVersion = editElem.innerHTML;
-//save the content to local storage | We could ask user to login first but the thought of registration might thwart some users.
-localStorage.userEdits = userVersion;
-//write a confirmation to the user
-document.getElementById("save").text = "saved!";}
-function checkEdits() {
-//find out if the user has previously saved edits, if they do than load them to paper
-if(localStorage.userEdits!=null)
-document.getElementById("paper").innerHTML=localStorage.userEdits;}
-//save date to localstorage
-Date.prototype.yyyymmdd = function() {
-   var yyyy = this.getFullYear().toString();
-   var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
-   var dd  = this.getDate().toString();
-   return (mm[1]?mm:"0"+mm[0]) + (dd[1]?dd:"0"+dd[0]) + yyyy; // padding
-  };
-d = new Date();
-dt = d.yyyymmdd();
-localStorage.setItem('date', dt);
-</script>
-<!-- start Mixpanel -->
-<script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
-for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f)}})(document,window.mixpanel||[]);
-mixpanel.init("fd7a2087c6faace8bffcbb0103a11618");</script>
-<!-- end Mixpanel -->
+<!--
+	Fractal by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Fractal by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+	</head>
+	<body id="top">
 
-</head><body onload="checkEdits()">
-	  <div class="search">
-	  	 <ul id="users"></ul>
-    <input type="text" style="display:none">
-  </div>
-  <div id="page"></div>
-<section id="footer"><div class="inner"><ul id="paperfooter" class="copyright"><li></li><li><a id="people" class="fa fa-users"></a></li><li><a id="finance" class=" fa fa-bar-chart"></a></li>	<li><a id="settings" class="fa fa-info"></a></li></ul><ul id="landingfooter" class="copyright"><li>© 2015 <a href=""><span id="rights">Fastur Inc.</span></a> All rights reserved.</li></ul><section id="history" class="features" style="display: none;"></section><span id="functions"></span></div></section><script>
-//annyang
-annyang.start();
-if (annyang) {
-domain = localStorage.getItem("domain");
-var commands = {
-'*term': function(term) {
-$("#paper").append(" " + term);
-saveEdits();
-var url = "https://vct.firebaseio.com/voices/" + domain; 
-var firebaseRef = new Firebase(url); 
-var postRef = firebaseRef.push(); 
-postRef.set({papervct: term});
- }};
- annyang.addCommands(commands); }
- 
-// prompt auth
+		<!-- Header -->
+			<header id="header">
+				<div class="content">
+					<h1><a href="#">Fractal</a></h1>
+					<p>Tickethost, Your source for quality event seating.<br />
+					<a href="http://html5up.net">HTML5 UP</a></p>
+					<ul class="actions">
+						<li><a href="mailto:mike@tickethost.ca?Subject=Hello%20Mike" class="button special icon fa-mail">Contact us</a></li>
+					</ul>
+				</div>
+				<div class="image phone"><div class="inner"><img src="http://www.exposureguide.com/images/concert/concert-photography-4e.jpg" alt="" /></div></div>
+			</header>
 
-var lock = null;
-$(document).ready(function() {
-   lock = new Auth0Lock('ZPJad5hCZV8SilXZeARGfgSUqXj9ONN8', 'xlynkz.auth0.com'); });
-var userProfile;
-$('.btn-login').click(function(e) {
-  e.preventDefault();
-  lock.show(function(err, profile, token) {
-    if (err) {
-      alert('There was an error');
-    } else {
-      // Success callback
-      document.getElementById("save").className.replace(/\bbtn-login\b/,'');
-      localStorage.setItem('userToken', token);
-      userProfile = profile;
-      uid = profile.user_id;
-      localStorage.setItem("uid", uid);
-      //get their data
-       var ref = new Firebase("https://vct.firebaseio.com/" + uid);
-       ref.on("value", function(snapshot) {
-       var allPost = snapshot.val();
-       document.getElementById("paper").innerText = allPost.papervct;       });
-    var ref = new Firebase("https://vct.firebaseio.com/public" );
-    ref.once("value", function(snapshot) {
-    snapshot.forEach(function(childSnapshot) {
-    var key = childSnapshot.key();
-    var childData = childSnapshot.val();
-    var title = childData.titlevct;
-    var paper = childData.papervct;
-    $("#history").append("<article>"+"<h3 class='major papers'>"+title+"</h3>"+"</article>");
-  } );
-});
-}
- });
-});
+		<!-- One -->
 
-//menu
-$("#finance").click( function(){ document.getElementById("paper").innerText = "what is the status?"; 
-var msg = new SpeechSynthesisUtterance('The status is: '); 
-window.speechSynthesis.speak(msg); });
-$("#settings").click( function(){ document.getElementById("paper").innerHTML = "What can I do?"; var msg = new SpeechSynthesisUtterance('Fastur is the easiest way to build'); window.speechSynthesis.speak(msg);}       );
-$("#people").click( function(){ document.getElementById("paper").innerText = "Who do you want to invite?"; var msg = new SpeechSynthesisUtterance('Who do you want to invite?'); window.speechSynthesis.speak(msg);});
-mixpanel.track(window.location.host + " loaded", { });
+		<!-- Footer -->
+			<footer id="footer">
+	
+				<p class="copyright">&copy; Tickethost. <a href="http://tickethost.ca"></a></p>
+			</footer>
 
-/*get public papers*/
-senddate = localStorage.getItem("date");
-$(document).ready(function(){  
-var ref = new Firebase("https://vct.firebaseio.com/public" );
-ref.on("child_added", function(snapshot, prevChildKey) {
-  snapshot.forEach(function(childSnapshot) {
-    var key = childSnapshot.key();
-    var childData = childSnapshot.val();
-    var title = childData.titlevct;
-    var paperwt = childData.papervct;
-    var paperwot = paperwt.replace(title, '');
-    paperwot = paperwot.toLowerCase();
-    var date = childData.senddate;
-    //$("#paper").append("<article class='post editable'>"+"<header>"+"<div class='title titleclicked'>"+"<h2>"+"<a>"+title+"</a>"+"</h2>"+"</div>"+"<div class='meta'>"+"<time><b>"+date+"</b></time>"+"<br><a class='icon fa-user'>&nbsp;1</a>"+"</div>"+"</header>"+"<p id='countpaper'>"+paperwot+"</p>"+"<footer>"+"</footer></article>");
-    var msg = new SpeechSynthesisUtterance(paperwot);
-    window.speechSynthesis.speak(msg);
-  });
-});
-});
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
 
-//get data and send to base
-$.getJSON('https://api.import.io/store/data/0253ebd1-8e30-4fc8-85c8-c1705b2aa11a/_query?input/webpage/url=http%3A%2F%2Fstackshare.io%2Ftrending%2Ftools&_user=7b4c104f-aa5a-4a33-99f3-8ef4c663f949&_apikey=7b4c104faa5a4a3399f38ef4c663f949c76e045d901de9892ee614a97afdb223dde0bd3f47db54662dcae9679071c3feee11a602998ff66702f39fff3a977d8504683fdc36418074a929318a50b1df83', function(data){
-//console.log(data.results);
-var validation_messages = data.results;
-var key, obj, prop, owns = Object.prototype.hasOwnProperty;
-for (key in validation_messages ) {
-    if (owns.call(validation_messages, key)) {
-        obj = validation_messages[key];
-        for (prop in obj ) {
-           if (owns.call(obj, prop)) {
-                if (/bread/i.test(prop)){
-                	//store in localstorage both vars then load them at end of loop
-                	 $("#loading").css("display", "none");
-           // $("#paper").append("<article class='post editable'>"+"<header>"+"<div class='title titleclicked'>"+"<h2>"+"<a>"+obj[prop]+"</a>"+"</h2>"+"</div>");
-                	senddate = localStorage.getItem("date");
-                var term = obj[prop]; 
-                var url = "https://vct.firebaseio.com/" + senddate; 
-var firebaseRef = new Firebase(url); 
-var postRef = firebaseRef.push(); 
-postRef.set({papervct: term});}
-                
-                 else if(/description/i.test(prop)){
-            //     $("#paper").append("<div class='meta'>"+"<time><b>"+obj[prop]+"</b></time>"+"<br><a class='icon fa-user'>&nbsp;1</a>"+"</div>"+"</header>"+"<p id='countpaper'>"+obj[prop]+"</p>"+"<footer>"+"</footer></article>");
-
-                        var term = obj[prop]; 
-                var url = "https://vct.firebaseio.com/" + senddate; 
-var firebaseRef = new Firebase(url); 
-var postRef = firebaseRef.push(); 
-postRef.set({papervct: term});}
-                
-                else{
-                            //console.log(prop, "=", obj[prop]);
-               }
-            }
-        }
-    }
-}
-});
-</script>
-<script>
-$('#paper').on('input',function(e){	saveEdits()	}); 
-</script>
-<script>
-//responses
-var ref = new Firebase("https://vct.firebaseio.com/responses");
-ref.on("child_added", function(snapshot, prevChildKey) {
-var newPost = snapshot.val();
-var response = (newPost.papervct);
-var msg = new SpeechSynthesisUtterance(response);
-window.speechSynthesis.speak(msg);
-document.getElementById("paper").innerText = response;});
-</script>
-<script>
-//functions
-var ref = new Firebase("https://vct.firebaseio.com/functions");
-ref.on("child_added", function(snapshot, prevChildKey) {
-var newPost = snapshot.val();
-var consolefn = (newPost.papervct);
-document.write(consolefn);
-});
-</script>
-<script>
-// go to base and load my html
-domain = localStorage.getItem("domain");
-var ref = new Firebase("https://vct.firebaseio.com/" + domain );
-ref.on("child_added", function(snapshot, prevChildKey) {
-var newPost = snapshot.val();
-var page = (newPost.papervct);
-document.getElementById("page").innerHTML = page;
-});
-var domain = localStorage.getItem("domain");
-document.getElementById("rights").innerHTML = domain;
-
-//if no directory exists for domain then create one 
-</script>
-<script>
-    var $input = $('#input');
-    var $users = $('#users');
-
-    $(document).ready(function() {
-      var client = algoliasearch('1WFMK06AUA', '274c770af80b09e77f199b6c7d064336');
-      var index = client.initIndex('test');
-
-      $input.keyup(function() {
-        index.search($input.val(), {
-          hitsPerPage: 10,
-          facets: '*'
-        }, searchCallback);
-      }).focus();
-    });
-
-    function searchCallback(err, content) {
-      if (err) {
-        console.error(err);
-        return;
-      }
-      $users.empty();
-      for (var i = 0; i < content.hits.length; i++) {
-        $users.append('<li>' + content.hits[i].name + '</li>');
-      }
-    };
-</script>
-</body>
+	</body>
 </html>
